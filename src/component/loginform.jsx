@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import Input from "./common/input";
+import Input from "./common/input";
 
 class LoginForm extends Component {
   //   userName = React.createRef();  // ref object create
