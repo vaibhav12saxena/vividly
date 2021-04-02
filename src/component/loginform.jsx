@@ -38,11 +38,13 @@ class LoginForm extends Component {
     account[e.currentTarget.name] = e.currentTarget.value;
     this.setState({ account, error: error || {} });
   };
+
   validateProperty(property) {
-    const error = {};
-    if (property.value.trim() === "") {
-      return `${property.name} is required`;
-    }
+    const schema = { [property.name]: this.schema[property.name] };
+    const obj = { [property["name"]]: property.value };
+    const { error } = Joi.validate(obj, schema);
+    if (!error) return null;
+    return error.details[0].message;
   }
 
   render() {
