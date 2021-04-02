@@ -1,57 +1,71 @@
 import React, { Component } from "react";
+import Joi from "joi-browser";
 import Input from "./common/input";
 
 class LoginForm extends Component {
-  //   userName = React.createRef();  // ref object create
-
   state = {
     account: { userName: "", password: "" },
+    error: {},
   };
-
-  // initial value is set to empty string as null and undefined give error cannat set controllable value of a uncontrollable field
+  schema = {
+    userName: Joi.string().required().label("Username"),
+    password: Joi.string().required().label("Password"),
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
+    const error = this.validateForm();
+    this.setState({ error: error || {} });
+    if (error) return;
     console.log("Submitted");
-    // console.log(this.userName.current.value);   // refs to get reference of a property alias of document.getElementbyId
   };
+  validateForm() {
+    const error = {};
+    const options = {
+      abortEarly: false,
+    };
+    const result = Joi.validate(this.state.account, this.schema, options);
+    if (!result.error) return null;
+    result.error.details.map((item) => (error[item.path[0]] = item.message));
+    return error;
+  }
   handleChange = (e) => {
     const account = { ...this.state.account };
+    const errorMessage = this.validateProperty(e.currentTarget);
+    const error = { ...this.state.error };
+    if (errorMessage) error[e.currentTarget.name] = errorMessage;
+    else delete error[e.currentTarget.name];
     account[e.currentTarget.name] = e.currentTarget.value;
-    this.setState({ account });
+    this.setState({ account, error: error || {} });
   };
+  validateProperty(property) {
+    const error = {};
+    if (property.value.trim() === "") {
+      return `${property.name} is required`;
+    }
+  }
 
   render() {
-    const { account } = this.state;
+    const { account, error } = this.state;
     return (
       <div>
         <h1>Login</h1>
-
         <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="username"> Username</label>
-            <input
-              value={account.userName}
-              onChange={this.handleChange}
-              name="userName"
-              //   ref={this.userName}   // ref setting
-              id="username"
-              type="text"
-              className="form-control"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              name="password"
-              onChange={this.handleChange}
-              value={account.password}
-              id="password"
-              type="text"
-              className="form-control"
-            />
-          </div>
+          <Input
+            value={account.userName}
+            onChange={this.handleChange}
+            name="userName"
+            error={error.userName}
+            label="Username"
+            autoFocus={true}
+          />
+          <Input
+            value={account.password}
+            onChange={this.handleChange}
+            name="password"
+            error={error.password}
+            label="Password"
+          />
           <button className="btn btn-primary">Login</button>
         </form>
       </div>
