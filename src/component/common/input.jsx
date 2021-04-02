@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = ({ label, value, name, onChange, autoFocus, error }) => {
+const Input = ({ type, label, value, name, onChange, autoFocus, error }) => {
   return (
     <div className="form-group">
       <label htmlFor={name}>{label}</label>
@@ -9,8 +9,8 @@ const Input = ({ label, value, name, onChange, autoFocus, error }) => {
         onChange={onChange}
         value={value}
         id={name}
+        type={type}
         autoFocus={autoFocus ? autoFocus : false}
-        type="text"
         className="form-control"
       />
 

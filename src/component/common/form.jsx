@@ -50,13 +50,14 @@ class Form extends Component {
       </button>
     );
   }
-  renderInput(name, label) {
+  renderInput(name, label, type = "text") {
     const { data, error } = this.state;
     return (
       <Input
         value={data[name]}
         onChange={this.handleChange}
         name={name}
+        type={type}
         error={error[name]}
         label={label}
         autoFocus={true}
