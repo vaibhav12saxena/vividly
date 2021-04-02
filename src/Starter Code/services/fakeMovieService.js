@@ -68,7 +68,6 @@ const movies = [
     dailyRentalRate: 3.5,
   },
 ];
-const genres = getGenres();
 
 export function getMovies() {
   return movies;
@@ -86,7 +85,7 @@ export function saveMovie(movie) {
   movieInDb.dailyRentalRate = movie.dailyRentalRate;
 
   if (!movieInDb._id) {
-    movieInDb._id = Date.now();
+    movieInDb._id = Date.now().toString();
     movies.push(movieInDb);
   }
 
