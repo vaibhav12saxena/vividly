@@ -18,26 +18,12 @@ class LoginForm extends Form {
   };
 
   render() {
-    const { data, error } = this.state;
     return (
       <div>
         <h1>Login</h1>
         <form onSubmit={this.handleSubmit}>
-          <Input
-            value={data.userName}
-            onChange={this.handleChange}
-            name="userName"
-            error={error.userName}
-            label="Username"
-            autoFocus={true}
-          />
-          <Input
-            value={data.password}
-            onChange={this.handleChange}
-            name="password"
-            error={error.password}
-            label="Password"
-          />
+          {this.renderInput("userName", "Username")}
+          {this.renderInput("password", "Password")}
           {this.renderButton("Login")}
         </form>
       </div>
