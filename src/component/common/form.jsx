@@ -21,6 +21,7 @@ class Form extends Component {
       abortEarly: false,
     };
     const result = Joi.validate(this.state.data, this.schema, options);
+    console.log(result);
     if (!result.error) return null;
     result.error.details.map((item) => (error[item.path[0]] = item.message));
     return error;
@@ -64,6 +65,35 @@ class Form extends Component {
       />
     );
   }
+  //   renderDropdown(name, label, options) {
+  //     const { data, error } = this.state;
+  //     return (
+  //       <React.Fragment>
+  //         <div className="dropdown">
+  //           <label htmlFor={name}>{label}</label>
+  //           <input
+  //             value={data[name]}
+  //             onChange={this.handleChange}
+  //             name={name}
+  //             // id={name}
+  //             className="form-control dropdown-toggle"
+  //             id="dropdownMenuButton"
+  //             data-toggle="dropdown"
+  //             aria-haspopup="true"
+  //             aria-expanded="false"
+  //           />
+  //           <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  //             <a className="dropdown-item">Action</a>
+  //             <a className="dropdown-item">Another action</a>
+  //             <a className="dropdown-item">Something else here</a>
+  //           </div>
+  //           {error[name] && (
+  //             <div className="alert alert-danger">{error[name]}</div>
+  //           )}
+  //         </div>
+  //       </React.Fragment>
+  //     );
+  //   }
 }
 
 export default Form;

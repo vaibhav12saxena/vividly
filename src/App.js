@@ -9,7 +9,7 @@ import NotFound from "./component/notFound";
 import MovieForm from "./component/movieForm";
 import LoginForm from "./component/loginform";
 import RegistrationForm from "./component/registrationForm";
-import NewMovieForm from "./component/newMovie";
+import NewMovieForm from "./component/newMovieForm";
 
 function App() {
   return (
@@ -19,8 +19,8 @@ function App() {
         <Switch>
           <Route path="/login" component={LoginForm} />
           <Route path="/register" component={RegistrationForm} />
-          <Route path="/movies/:id" component={MovieForm} />
           <Route path="/movies/new" component={NewMovieForm} />
+          <Route path="/movies/:id" component={MovieForm} />
           <Route path="/movies" component={Movies} />
           <Route path="/rentals" component={Rentals} />
           <Route path="/customers" component={Customers} />

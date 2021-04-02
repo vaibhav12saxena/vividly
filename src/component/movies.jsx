@@ -1,5 +1,9 @@
 import { Component } from "react";
-import { getMovies } from "../Starter Code/services/fakeMovieService";
+import { Link } from "react-router-dom";
+import {
+  getMovies,
+  deleteMovie,
+} from "../Starter Code/services/fakeMovieService";
 import { getGenres } from "../Starter Code/services/fakeGenreService";
 import MoviesTable from "./moviesTable";
 import Pagination from "./common/pagination";
@@ -58,6 +62,14 @@ class Movies extends Component {
           />
         </div>
         <div className="col">
+          <Link
+            className="btn btn-primary"
+            to="/movies/new"
+            style={{ margin: 20 }}
+          >
+            New Movie
+          </Link>
+
           <div>{`Showing ${totalCount} movies in the databse`}</div>
           <MoviesTable
             movies={data}
@@ -82,6 +94,7 @@ class Movies extends Component {
       (element) => element._id !== movie._id
     );
     this.setState({ movies });
+    deleteMovie(movie._id);
   };
   handleLike = (movie) => {
     const movies = [...this.state.movies];
