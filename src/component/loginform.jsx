@@ -38,9 +38,7 @@ class LoginForm extends Form {
             error={error.password}
             label="Password"
           />
-          <button className="btn btn-primary" disabled={this.validateForm()}>
-            Login
-          </button>
+          {this.renderButton("Login")}
         </form>
       </div>
     );

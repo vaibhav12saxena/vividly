@@ -41,6 +41,14 @@ class Form extends Component {
     if (!error) return null;
     return error.details[0].message;
   }
+
+  renderButton(label) {
+    return (
+      <button className="btn btn-primary" disabled={this.validateForm()}>
+        {label}
+      </button>
+    );
+  }
 }
 
 export default Form;
